@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import authRoutes from './routes/authRoutes.js'
 import { initDB } from './config/db.js'
+import employeeRoutes from './routes/employeeRoutes.js'
 
 dotenv.config()
 const app = express()
@@ -16,6 +17,8 @@ app.use(express.json())
 await initDB()
 
 app.use('/api/auth', authRoutes)
+app.use('/api/employees', employeeRoutes)
+
 
 app.get('/', (req, res) => res.json({ message: 'API running' }))
 

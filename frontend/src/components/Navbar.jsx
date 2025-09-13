@@ -39,6 +39,7 @@ export default function Navbar() {
           flexWrap: 'wrap',
         }}
       >
+        {/* Logo + Brand */}
         <div
           style={{
             display: 'flex',
@@ -71,6 +72,7 @@ export default function Navbar() {
           </Link>
         </div>
 
+        {/* Mobile Toggle */}
         <button
           style={{
             display: 'none',
@@ -88,6 +90,7 @@ export default function Navbar() {
           {isMenuOpen ? '✕' : '☰'}
         </button>
 
+        {/* Mobile Menu */}
         <div
           style={{
             display: isMenuOpen ? 'flex' : 'none',
@@ -108,92 +111,40 @@ export default function Navbar() {
               }}
             >
               <Link
-                to="/"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  padding: '0.5rem',
-                  fontSize: '1rem',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
+                to="/dashboard"
+                style={linkStyle}
                 onClick={() => setIsMenuOpen(false)}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
               >
                 Dashboard
               </Link>
               <Link
-                to="/users"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  padding: '0.5rem',
-                  fontSize: '1rem',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
+                to="/employees"
+                style={linkStyle}
                 onClick={() => setIsMenuOpen(false)}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
+              >
+                Employees
+              </Link>
+              <Link
+                to="/users"
+                style={linkStyle}
+                onClick={() => setIsMenuOpen(false)}
               >
                 Users
               </Link>
             </div>
           )}
           {!token ? (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-              }}
-            >
-              <Link
-                to="/login"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  padding: '0.5rem',
-                  fontSize: '1rem',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
-                onClick={() => setIsMenuOpen(false)}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
-              >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <Link to="/login" style={linkStyle} onClick={() => setIsMenuOpen(false)}>
                 Login
               </Link>
-              <Link
-                to="/register"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  padding: '0.5rem',
-                  fontSize: '1rem',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
-                onClick={() => setIsMenuOpen(false)}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
-              >
+              <Link to="/register" style={linkStyle} onClick={() => setIsMenuOpen(false)}>
                 Register
               </Link>
             </div>
           ) : (
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem',
-                alignItems: 'flex-start',
-              }}
-            >
-              <span
-                style={{
-                  color: 'white',
-                  padding: '0.5rem',
-                  fontSize: '1rem',
-                }}
-              >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', alignItems: 'flex-start' }}>
+              <span style={{ color: 'white', padding: '0.5rem', fontSize: '1rem' }}>
                 Hi, {user?.name || user?.email || 'User'}
               </span>
               <button
@@ -201,18 +152,7 @@ export default function Navbar() {
                   handleLogout();
                   setIsMenuOpen(false);
                 }}
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '1px solid white',
-                  borderRadius: '6px',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
+                style={logoutButtonStyle}
               >
                 Logout
               </button>
@@ -220,98 +160,26 @@ export default function Navbar() {
           )}
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.5rem',
-          }}
-          className="desktop-menu"
-        >
+        {/* Desktop Menu */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }} className="desktop-menu">
           {token && (
             <>
-              <Link
-                to="/"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '1rem',
-                  transition: 'opacity 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.opacity = '0.8')}
-                onMouseOut={(e) => (e.target.style.opacity = '1')}
-              >
-                Dashboard
-              </Link>
-              <Link
-                to="/users"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '1rem',
-                  transition: 'opacity 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.opacity = '0.8')}
-                onMouseOut={(e) => (e.target.style.opacity = '1')}
-              >
-                Users
-              </Link>
+              <Link to="/dashboard" style={linkStyle}>Dashboard</Link>
+              <Link to="/employees" style={linkStyle}>Employees</Link>
+              <Link to="/users" style={linkStyle}>Users</Link>
             </>
           )}
           {!token ? (
             <>
-              <Link
-                to="/login"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '1rem',
-                  transition: 'opacity 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.opacity = '0.8')}
-                onMouseOut={(e) => (e.target.style.opacity = '1')}
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                style={{
-                  color: 'white',
-                  textDecoration: 'none',
-                  fontSize: '1rem',
-                  transition: 'opacity 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.opacity = '0.8')}
-                onMouseOut={(e) => (e.target.style.opacity = '1')}
-              >
-                Register
-              </Link>
+              <Link to="/login" style={linkStyle}>Login</Link>
+              <Link to="/register" style={linkStyle}>Register</Link>
             </>
           ) : (
             <>
-              <span
-                style={{
-                  color: 'white',
-                  fontSize: '1rem',
-                }}
-              >
+              <span style={{ color: 'white', fontSize: '1rem' }}>
                 Hi, {user?.name || user?.email || 'User'}
               </span>
-              <button
-                onClick={handleLogout}
-                style={{
-                  padding: '0.5rem 1rem',
-                  backgroundColor: 'transparent',
-                  color: 'white',
-                  border: '1px solid white',
-                  borderRadius: '6px',
-                  fontSize: '0.9rem',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s ease-in-out',
-                }}
-                onMouseOver={(e) => (e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)')}
-                onMouseOut={(e) => (e.target.style.backgroundColor = 'transparent')}
-              >
+              <button onClick={handleLogout} style={logoutButtonStyle}>
                 Logout
               </button>
             </>
@@ -347,3 +215,23 @@ export default function Navbar() {
     </nav>
   );
 }
+
+/* Reusable styles */
+const linkStyle = {
+  color: 'white',
+  textDecoration: 'none',
+  fontSize: '1rem',
+  padding: '0.5rem',
+  transition: 'opacity 0.2s ease-in-out',
+};
+
+const logoutButtonStyle = {
+  padding: '0.5rem 1rem',
+  backgroundColor: 'transparent',
+  color: 'white',
+  border: '1px solid white',
+  borderRadius: '6px',
+  fontSize: '0.9rem',
+  cursor: 'pointer',
+  transition: 'background-color 0.2s ease-in-out',
+};
